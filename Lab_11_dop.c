@@ -3,6 +3,7 @@
 #include "functions.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 int word_count (const char *string) {
 	int count = 0, i = 0;
 	char in_word = 0;
@@ -66,6 +67,29 @@ void argssplit (char *args, int *argc, char **argv) {
 	
 	if (in_word) {
 		argv[i][j] = '\0';
+	}
+}
+void quicksort (char** argv, int first, int last) {
+	if (first < last) {
+		int left = first, right = last;
+		char* middle = argv[(left + right) / 2];
+		while (left <= right) {
+			while (strcmp (argv[left], middle) < 0) {
+				++left;
+			}
+			while (strcmp (argv[right], middle) > 0) {
+				--right;
+			}
+			if (left <= right) {
+				char* tmp = argv[left];
+				argv[left] = argv[right];
+				argv[right] = tmp;
+				++left;
+				--right;
+			}
+		}
+		quicksort (argv, first, right);
+		quicksort (argv, left, last);
 	}
 }
 #endif

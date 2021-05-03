@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
-
+/*
+	Отсортировать слова в строке со сложностью n*log(n)
+*/
 int main () {
 	int a = 0, length = 0, volume = 10;
 	char* args = malloc (volume * sizeof (char));
@@ -27,7 +29,8 @@ int main () {
 	}
 	args[length] = '\0';
 	int argc = 0;
-	char **argv = (char**) malloc (word_count (args) * sizeof (char*));
+	int count = word_count (args);
+	char **argv = (char**) malloc (count * sizeof (char*));
 	if (argv == NULL) {
 		printf ("NOT ENOUGH MEMORY!\n");
 		exit (1);
@@ -41,6 +44,7 @@ int main () {
 		return 0;
 	}
 	printf ("Words:\n");
+	quicksort (argv, 0, count - 1);
 	for (int i = 0; i < argc; ++i) {
 		printf ("%s\n", argv[i]);
 		free (argv[i]);
